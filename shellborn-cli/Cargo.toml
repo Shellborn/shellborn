@@ -2,6 +2,17 @@
 name = "shellborn-cli"
 version = "0.1.0"
 edition = "2021"
+authors=["Jonas Pfeifer", "Tobias Frischmann"]
+
 
 [dependencies]
 shellborn = { path = "../shellborn" }
+clap = { version = "4.4.8", features = ["derive"] }
+clap-verbosity-flag = { version = "2.1.0" }
+anyhow = "1.0.75"
+env_logger = "0.10.1"
+log = "0.4.20"
+
+[dev-dependencies]
+assert_cmd = "2.0"
+predicates = "2.1"

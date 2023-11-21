@@ -23,7 +23,7 @@ pub fn main() -> anyhow::Result<()> {
     debug!("start reading file");
     let file_content = fs::read_to_string(&args.file_path);
     if file_content.is_err() { error!("failed to read file content")  }
-    let file_content = file_content.with_context(|| format!("could not read file '{}'", args.file_path.display()))?;
+    let _file_content = file_content.with_context(|| format!("could not read file '{}'", args.file_path.display()))?;
     info!("file content was read");
 
     // TODO: Use Shellborn

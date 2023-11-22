@@ -1,0 +1,13 @@
+entity Student
+- id PK
+- first_name
+- last_name
+- birthdate
+
+entity Class
+- id PK
+- name UK
+
+relation is_in
+- Student 0;1
+- Class 0;n

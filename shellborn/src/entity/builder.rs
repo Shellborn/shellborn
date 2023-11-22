@@ -1,7 +1,6 @@
-use crate::attribute::attribute::Attribute;
-use crate::attribute::builder::ConcatenatedAttributeBuilder;
-use crate::entity::entity::Entity;
+use crate::attribute::Attribute;
 use crate::entity::entity_decoration::EntityDecoration;
+use crate::entity::Entity;
 
 pub struct EntityBuilder {
     name: String,
@@ -23,28 +22,8 @@ impl EntityBuilder {
         self
     }
 
-    pub fn add_basic<S: Into<String>>(mut self, name: S) -> Self {
-        self.attributes.push(Attribute::basic(name));
-        self
-    }
-
-    pub fn add_id<S: Into<String>>(mut self, name: S) -> Self {
-        self.attributes.push(Attribute::id(name));
-        self
-    }
-
-    pub fn add_derived<S: Into<String>>(mut self, name: S) -> Self {
-        self.attributes.push(Attribute::derived(name));
-        self
-    }
-
-    pub fn add_multi_valued<S: Into<String>>(mut self, name: S) -> Self {
-        self.attributes.push(Attribute::multi_valued(name));
-        self
-    }
-
-    pub fn add_concatenated(mut self, concatenated: ConcatenatedAttributeBuilder) -> Self {
-        self.attributes.push(concatenated.build());
+    pub fn add_attribute(mut self, attribute: Attribute) -> Self {
+        self.attributes.push(attribute);
         self
     }
 
@@ -55,5 +34,28 @@ impl EntityBuilder {
             EntityDecoration::Default
         };
         Entity::new(self.name, entity_decoration, self.attributes)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::attribute::Attribute;
+    use crate::entity::builder::EntityBuilder;
+    use crate::entity::entity_decoration::EntityDecoration;
+    use crate::entity::Entity;
+
+    #[test]
+    fn builder() {
+        assert_eq!(
+            EntityBuilder::new("test")
+                .set_weak(true)
+                .add_attribute(Attribute::basic("attribute"))
+                .build(),
+            Entity {
+                name: "test".to_string(),
+                entity_decoration: EntityDecoration::Weak,
+                attributes: vec![Attribute::basic("attribute")]
+            }
+        )
     }
 }

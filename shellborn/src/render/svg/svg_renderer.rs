@@ -1,7 +1,5 @@
 use crate::render::svg::view_box::ViewBox;
 
-
-
 use crate::render::svg::render_able::SvgRenderAble;
 use std::path::Path;
 
@@ -22,9 +20,9 @@ impl Default for SVGRenderer {
 }
 
 impl SVGRenderer {
-    pub fn add(&mut self, render_able: &dyn SvgRenderAble) {
+    pub fn append(&mut self, render_able: &dyn SvgRenderAble) {
         self.update_view_box(&render_able.view_box());
-        self.document = render_able.render(self.document.to_owned());
+        self.document = render_able.render_onto(self.document.to_owned());
     }
 
     fn update_view_box(&mut self, other_view_box: &ViewBox) {

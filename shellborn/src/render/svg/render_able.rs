@@ -5,12 +5,12 @@ use svg::node::element::Ellipse;
 use svg::Document;
 
 pub trait SvgRenderAble {
-    fn render(&self, document: Document) -> Document;
+    fn render_onto(&self, document: Document) -> Document;
     fn view_box(&self) -> ViewBox;
 }
 
 impl SvgRenderAble for Positioned<Entity> {
-    fn render(&self, document: Document) -> Document {
+    fn render_onto(&self, document: Document) -> Document {
         let width = 100;
         let height = 50;
 

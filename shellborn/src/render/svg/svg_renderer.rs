@@ -1,12 +1,12 @@
-use crate::forms::entity_type::EntityType;
 use crate::render::svg::view_box::ViewBox;
 
+use crate::entity::Entity;
+use crate::positioned::Positioned;
 use std::path::Path;
 use svg::node::element::Ellipse;
 use svg::Document;
 
 pub struct SVGRenderer {
-    // min_y, min_y, width, height
     view_box: ViewBox,
     document: Document,
 }
@@ -21,20 +21,20 @@ impl Default for SVGRenderer {
 }
 
 impl SVGRenderer {
-    pub fn add_entity_type(&mut self, entity_type: &EntityType) {
+    pub fn add_entity(&mut self, entity: &Positioned<Entity>) {
         let width = 100;
         let height = 50;
 
         self.update_view_box(&ViewBox::new(
-            entity_type.center_x - width / 2,
-            entity_type.center_y - height / 2,
-            entity_type.center_x + width / 2,
-            entity_type.center_y + height / 2,
+            entity.center_x as i32 - width / 2,
+            entity.center_y as i32 - height / 2,
+            entity.center_x as i32 + width / 2,
+            entity.center_y as i32 + height / 2,
         ));
 
         let ellipse = Ellipse::new()
-            .set("cx", entity_type.center_x)
-            .set("cy", entity_type.center_y)
+            .set("cx", entity.center_x as i32)
+            .set("cy", entity.center_y as i32)
             .set("rx", width / 2)
             .set("ry", height / 2);
 

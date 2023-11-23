@@ -1,9 +1,10 @@
 use crate::render::svg::view_box::ViewBox;
 
-use crate::entity::Entity;
-use crate::positioned::Positioned;
+
+
+use crate::render::svg::render_able::SvgRenderAble;
 use std::path::Path;
-use svg::node::element::Ellipse;
+
 use svg::Document;
 
 pub struct SVGRenderer {
@@ -21,24 +22,9 @@ impl Default for SVGRenderer {
 }
 
 impl SVGRenderer {
-    pub fn add_entity(&mut self, entity: &Positioned<Entity>) {
-        let width = 100;
-        let height = 50;
-
-        self.update_view_box(&ViewBox::new(
-            entity.center_x as i32 - width / 2,
-            entity.center_y as i32 - height / 2,
-            entity.center_x as i32 + width / 2,
-            entity.center_y as i32 + height / 2,
-        ));
-
-        let ellipse = Ellipse::new()
-            .set("cx", entity.center_x as i32)
-            .set("cy", entity.center_y as i32)
-            .set("rx", width / 2)
-            .set("ry", height / 2);
-
-        self.document = self.document.to_owned().add(ellipse);
+    pub fn add(&mut self, render_able: &dyn SvgRenderAble) {
+        self.update_view_box(&render_able.view_box());
+        self.document = render_able.render(self.document.to_owned());
     }
 
     fn update_view_box(&mut self, other_view_box: &ViewBox) {

@@ -8,13 +8,13 @@ fn main() {
 
     Entity::new("huff", EntityDecoration::Default, vec![]);
 
-    svg.add_entity(&Positioned::new(
+    svg.add(&Positioned::new(
         Entity::new("huff", EntityDecoration::Default, vec![]),
         10.0,
         100.0,
     ));
 
-    svg.add_entity(&Positioned::new(
+    svg.add(&Positioned::new(
         Entity::new("puff", EntityDecoration::Default, vec![]),
         -20.0,
         0.0,

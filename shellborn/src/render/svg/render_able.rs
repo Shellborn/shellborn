@@ -1,7 +1,8 @@
 use crate::entity::Entity;
 use crate::positioned::Positioned;
+use crate::render::svg::text::text_element;
 use crate::render::svg::view_box::ViewBox;
-use svg::node::element::Ellipse;
+use svg::node::element::Rectangle;
 use svg::Document;
 
 pub trait SvgRenderAble {
@@ -11,26 +12,30 @@ pub trait SvgRenderAble {
 
 impl SvgRenderAble for Positioned<Entity> {
     fn render_onto(&self, document: Document) -> Document {
-        let width = 100;
-        let height = 50;
+        let width = self.width();
+        let height = self.height();
 
-        let ellipse = Ellipse::new()
-            .set("cx", self.center_x as i32)
-            .set("cy", self.center_y as i32)
-            .set("rx", width / 2)
-            .set("ry", height / 2);
+        let body = Rectangle::new()
+            .set("x", self.center_x as i32 - (width / 2.).ceil() as i32)
+            .set("y", self.center_y as i32 - (height / 2.).ceil() as i32)
+            .set("width", width)
+            .set("height", height);
 
-        document.add(ellipse)
+        document.add(body).add(text_element(
+            &self.data.name,
+            self.center_x as i32,
+            self.center_y as i32,
+        ))
     }
     fn view_box(&self) -> ViewBox {
-        let width = 100;
-        let height = 50;
+        let width = self.width();
+        let height = self.height();
 
         ViewBox::new(
-            self.center_x as i32 - width / 2,
-            self.center_y as i32 - height / 2,
-            self.center_x as i32 + width / 2,
-            self.center_y as i32 + height / 2,
+            self.center_x as i32 - (width / 2.).ceil() as i32,
+            self.center_y as i32 - (height / 2.).ceil() as i32,
+            self.center_x as i32 + (width / 2.).ceil() as i32,
+            self.center_y as i32 + (height / 2.).ceil() as i32,
         )
     }
 }

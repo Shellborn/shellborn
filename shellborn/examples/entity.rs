@@ -6,19 +6,23 @@ use shellborn::render::svg::svg_renderer::SVGRenderer;
 fn main() {
     let mut svg = SVGRenderer::default();
 
-    Entity::new("huff", EntityDecoration::Default, vec![]);
-
     svg.append(&Positioned::new(
-        Entity::new("huff", EntityDecoration::Default, vec![]),
+        Entity::new("House", EntityDecoration::Default, vec![]),
         10.0,
-        100.0,
+        20.0,
     ));
 
     svg.append(&Positioned::new(
-        Entity::new("puff", EntityDecoration::Default, vec![]),
+        Entity::new("Garage", EntityDecoration::Default, vec![]),
         -20.0,
+        -30.0,
+    ));
+
+    svg.append(&Positioned::new(
+        Entity::new("Building", EntityDecoration::Default, vec![]),
+        -30.0,
         0.0,
     ));
 
-    svg.save("examples/ellipse.svg");
+    svg.save("examples/entity.svg");
 }

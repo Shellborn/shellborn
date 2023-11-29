@@ -3,7 +3,7 @@ pub mod entity;
 pub mod relation;
 pub mod render;
 
-pub mod positioned;
+pub mod position;
 
 pub fn say_hello() {
     println!("hello");

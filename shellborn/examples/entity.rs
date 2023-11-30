@@ -1,28 +1,21 @@
 use shellborn::entity::entity_decoration::EntityDecoration;
 use shellborn::entity::Entity;
-use shellborn::positioned::Positioned;
 use shellborn::render::svg::svg_renderer::SVGRenderer;
 
 fn main() {
     let mut svg = SVGRenderer::default();
 
-    svg.append(&Positioned::new(
-        Entity::new("House", EntityDecoration::Default, vec![]),
-        10.0,
-        20.0,
-    ));
+    let mut entity = Entity::new("House", EntityDecoration::Default, vec![]);
+    entity.position.set((12.0, 20.0));
+    svg.append(&entity);
 
-    svg.append(&Positioned::new(
-        Entity::new("Garage", EntityDecoration::Default, vec![]),
-        -20.0,
-        -30.0,
-    ));
+    let mut entity = Entity::new("Garage", EntityDecoration::Default, vec![]);
+    entity.position.set((-20.0, -30.0));
+    svg.append(&entity);
 
-    svg.append(&Positioned::new(
-        Entity::new("Building", EntityDecoration::Default, vec![]),
-        -30.0,
-        0.0,
-    ));
+    let mut entity = Entity::new("Building", EntityDecoration::Default, vec![]);
+    entity.position.set((-30.0, 0.0));
+    svg.append(&entity);
 
     svg.save("examples/entity.svg");
 }

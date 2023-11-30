@@ -1,6 +1,3 @@
-use crate::entity::Entity;
-use crate::render::svg::text::text_width;
-
 #[derive(Default, PartialEq, Debug)]
 pub struct Position {
     pub center_x: f32,

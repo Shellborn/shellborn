@@ -54,7 +54,8 @@ mod tests {
             Entity {
                 name: "test".to_string(),
                 entity_decoration: EntityDecoration::Weak,
-                attributes: vec![Attribute::basic("attribute")]
+                attributes: vec![Attribute::basic("attribute")],
+                position: Default::default(),
             }
         )
     }
